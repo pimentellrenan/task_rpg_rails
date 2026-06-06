@@ -25,7 +25,6 @@ jobs:
           --health-retries 5
     env:
       RAILS_ENV: test
-      DATABASE_URL: postgres://taskrpg:taskrpg123@localhost:5432/task_rpg_test
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1

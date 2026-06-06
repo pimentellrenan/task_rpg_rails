@@ -5,11 +5,19 @@ default: &default
 
 development:
   <<: *default
-  url: <%= ENV.fetch("DATABASE_URL", "postgresql://taskrpg:taskrpg123@localhost:5434/task_rpg_development") %>
+  database: task_rpg_development
+  username: taskrpg
+  password: taskrpg123
+  host: <%= ENV.fetch("POSTGRES_HOST", "localhost") %>
+  port: <%= ENV.fetch("POSTGRES_PORT", 5434) %>
 
 test:
   <<: *default
-  url: <%= ENV.fetch("DATABASE_URL", "postgresql://taskrpg:taskrpg123@localhost:5432/task_rpg_test") %>
+  database: task_rpg_test
+  username: taskrpg
+  password: taskrpg123
+  host: localhost
+  port: 5432
 
 production:
   <<: *default

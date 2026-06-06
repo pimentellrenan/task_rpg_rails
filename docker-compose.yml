@@ -22,7 +22,8 @@ services:
     command: bash -lc "bundle install && ruby bin/rails db:prepare && (ruby bin/rails tailwindcss:watch & ruby bin/rails server -b 0.0.0.0)"
     environment:
       RAILS_ENV: development
-      DATABASE_URL: postgresql://taskrpg:taskrpg123@db:5432/task_rpg_development
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
       RAILS_MASTER_KEY: local-dev-no-credentials
     ports:
       - "3001:3000"
