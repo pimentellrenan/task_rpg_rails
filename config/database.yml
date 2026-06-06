@@ -21,4 +21,4 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV.fetch("DATABASE_URL") %>
+  url: <%= ENV.fetch("DATABASE_URL", "postgresql://taskrpg:taskrpg123@localhost:5432/task_rpg_test") %>
