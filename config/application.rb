@@ -9,5 +9,6 @@ module TaskRpgRails
     config.load_defaults 8.0
     config.time_zone = "America/Sao_Paulo"
     config.active_record.default_timezone = :local
+    config.action_controller.asset_host = ENV["ASSET_HOST"] if ENV["ASSET_HOST"].present?
   end
 end
