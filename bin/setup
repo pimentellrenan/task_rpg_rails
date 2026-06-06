@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require "fileutils"
+
+def system!(*args)
+  system(*args, exception: true)
+end
+
+system! "bundle install"
+system! "ruby bin/rails db:prepare"

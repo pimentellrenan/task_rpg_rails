@@ -1,0 +1,13 @@
+<section class="px-4 py-5 md:py-8">
+  <div class="flex items-center justify-between">
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-[#1f7a8c]">Mapa completo</p>
+      <h1 class="text-3xl font-black">Todas abertas</h1>
+    </div>
+    <%= link_to "Hoje", root_path, class: "rounded-md bg-[#17201d] px-4 py-3 text-sm font-black text-white" %>
+  </div>
+
+  <div class="mt-6 space-y-3">
+    <%= render partial: "task", collection: @tasks, as: :task %>
+  </div>
+</section>

@@ -1,0 +1,10 @@
+<% colors = {
+  "ink" => "bg-[#17201d] text-white",
+  "gold" => "bg-[#f0a202] text-[#17201d]",
+  "green" => "bg-[#1f7a8c] text-white",
+  "red" => "bg-[#bf4342] text-white"
+} %>
+<div class="rounded-md p-4 shadow-sm <%= colors.fetch(tone) %>">
+  <p class="text-xs font-bold uppercase tracking-wide opacity-75"><%= label %></p>
+  <p class="mt-1 text-3xl font-black"><%= value %></p>
+</div>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <title>Task RPG</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="min-h-screen bg-[#f6f1e8] text-[#17201d] antialiased">
+    <main class="mx-auto min-h-screen max-w-5xl pb-24 md:px-6">
+      <% if flash[:alert].present? %>
+        <div class="mx-4 mt-4 rounded-md bg-[#bf4342] px-4 py-3 text-sm font-semibold text-white"><%= flash[:alert] %></div>
+      <% end %>
+      <%= yield %>
+    </main>
+
+    <% if signed_in? %>
+      <nav class="fixed inset-x-0 bottom-0 z-20 border-t border-[#17201d]/10 bg-[#f6f1e8]/95 px-4 py-3 backdrop-blur md:hidden">
+        <div class="mx-auto grid max-w-md grid-cols-3 text-center text-xs font-bold uppercase tracking-wide text-[#5c6f68]">
+          <%= link_to "Hoje", root_path, class: "py-2" %>
+          <%= link_to "Tarefas", tasks_path, class: "py-2" %>
+          <%= link_to "Projetos", projects_path, class: "py-2" %>
+        </div>
+      </nav>
+    <% end %>
+  </body>
+</html>

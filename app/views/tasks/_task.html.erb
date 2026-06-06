@@ -1,0 +1,24 @@
+<article class="rounded-md border border-[#17201d]/10 bg-white p-4 shadow-sm">
+  <div class="flex items-start gap-3">
+    <% unless task.completed? %>
+      <%= button_to complete_task_path(task), method: :patch, class: "mt-1 h-6 w-6 rounded-full border-2 border-[#1f7a8c] text-transparent" do %>
+        .
+      <% end %>
+    <% end %>
+    <div class="min-w-0 flex-1">
+      <h3 class="text-base font-black leading-snug <%= "line-through opacity-60" if task.completed? %>"><%= task.title %></h3>
+      <div class="mt-2 flex flex-wrap items-center gap-2 text-xs font-bold text-[#5c6f68]">
+        <% if task.project %>
+          <span class="rounded-md px-2 py-1 text-white" style="background-color: <%= task.project.color %>"><%= task.project.name %></span>
+        <% end %>
+        <span class="rounded-md bg-[#f6f1e8] px-2 py-1"><%= task.priority %></span>
+        <% if task.due_at %>
+          <span class="rounded-md bg-[#f6f1e8] px-2 py-1"><%= l(task.due_at, format: "%d/%m %H:%M") %></span>
+        <% end %>
+        <% task.tags.each do |tag| %>
+          <span>#<%= tag.name %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</article>

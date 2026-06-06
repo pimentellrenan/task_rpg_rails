@@ -1,0 +1,26 @@
+<section class="px-4 py-5 md:py-8">
+  <div>
+    <p class="text-sm font-bold uppercase tracking-wide text-[#bf4342]">Organizacao</p>
+    <h1 class="text-3xl font-black">Projetos</h1>
+  </div>
+
+  <%= form_with model: @project, class: "mt-5 grid gap-3 rounded-md bg-[#17201d] p-4 md:grid-cols-[1fr_160px_120px]" do |form| %>
+    <%= form.text_field :name, placeholder: "Nome do projeto", class: "rounded-md border-0 px-4 py-3 font-bold" %>
+    <%= form.color_field :color, class: "h-12 w-full rounded-md border-0 bg-white p-1" %>
+    <%= form.submit "Criar", class: "rounded-md bg-[#f0a202] px-4 py-3 font-black" %>
+  <% end %>
+
+  <div class="mt-6 grid gap-3 md:grid-cols-2">
+    <% @projects.each do |project| %>
+      <article class="rounded-md bg-white p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="h-5 w-5 rounded-md" style="background-color: <%= project.color %>"></span>
+            <h2 class="font-black"><%= project.name %></h2>
+          </div>
+          <span class="text-sm font-bold text-[#5c6f68]"><%= project.tasks.open.count %></span>
+        </div>
+      </article>
+    <% end %>
+  </div>
+</section>

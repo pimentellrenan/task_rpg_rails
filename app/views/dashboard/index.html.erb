@@ -1,0 +1,75 @@
+<section class="px-4 py-5 md:py-8">
+  <header class="flex items-start justify-between gap-4">
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-[#bf4342]">Painel de bordo</p>
+      <h1 class="mt-1 text-3xl font-black text-[#17201d] md:text-5xl">Missões de hoje</h1>
+    </div>
+    <%= button_to "Sair", session_path, method: :delete, class: "rounded-md border border-[#17201d]/15 px-3 py-2 text-sm font-bold" %>
+  </header>
+
+  <div class="mt-5 grid gap-3 md:grid-cols-4">
+    <%= render "stat", label: "Nivel", value: current_user.level, tone: "ink" %>
+    <%= render "stat", label: "XP total", value: current_user.total_xp, tone: "gold" %>
+    <%= render "stat", label: "Streak", value: "#{current_user.current_streak}d", tone: "green" %>
+    <%= render "stat", label: "Proximo", value: current_user.xp_for_next_level, tone: "red" %>
+  </div>
+
+  <section class="mt-6 rounded-md border-2 border-[#17201d] bg-[#17201d] p-4 text-white shadow-[6px_6px_0_#f0a202]">
+    <%= form_with model: @task, class: "space-y-3" do |form| %>
+      <%= form.text_area :title, rows: 3, placeholder: "joga aqui: comprar paprika amanha 18h #casa", class: "w-full resize-none rounded-md border-0 bg-white px-4 py-4 text-lg font-bold text-[#17201d] outline-none placeholder:text-[#5c6f68]" %>
+      <div class="flex items-center gap-2">
+        <%= form.collection_select :project_id, @projects, :id, :name, { include_blank: "Sem projeto" }, class: "min-w-0 flex-1 rounded-md border-0 bg-[#f6f1e8] px-3 py-3 text-sm font-bold text-[#17201d]" %>
+        <%= form.submit "Capturar", class: "rounded-md bg-[#f0a202] px-4 py-3 text-sm font-black text-[#17201d]" %>
+      </div>
+    <% end %>
+  </section>
+
+  <div class="mt-7 grid gap-5 lg:grid-cols-[1.15fr_.85fr]">
+    <section>
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-black">Hoje</h2>
+        <span class="rounded-md bg-white px-2 py-1 text-xs font-bold text-[#5c6f68]"><%= @today.count %></span>
+      </div>
+      <div class="mt-3 space-y-3">
+        <%= render partial: "tasks/task", collection: @today, as: :task %>
+        <%= render "empty", message: "Hoje livre. Puxe algo do Inbox ou respire." if @today.empty? %>
+      </div>
+
+      <div class="mt-7 flex items-center justify-between">
+        <h2 class="text-xl font-black">Atrasadas</h2>
+        <span class="rounded-md bg-[#bf4342] px-2 py-1 text-xs font-bold text-white"><%= @overdue.count %></span>
+      </div>
+      <div class="mt-3 space-y-3">
+        <%= render partial: "tasks/task", collection: @overdue, as: :task %>
+        <%= render "empty", message: "Nada vencido. Belo silencio." if @overdue.empty? %>
+      </div>
+    </section>
+
+    <aside class="space-y-5">
+      <section>
+        <h2 class="text-xl font-black">Inbox bruto</h2>
+        <div class="mt-3 space-y-3">
+          <%= render partial: "tasks/task", collection: @inbox, as: :task %>
+          <%= render "empty", message: "Inbox vazio." if @inbox.empty? %>
+        </div>
+      </section>
+
+      <section class="rounded-md bg-white p-4 shadow-sm">
+        <h2 class="text-lg font-black">Badges</h2>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <% @badges.each do |badge| %>
+            <span class="rounded-md bg-[#f0a202]/20 px-3 py-2 text-sm font-bold"><%= BadgeLedger::BADGES.fetch(badge.badge_key, badge.badge_key) %></span>
+          <% end %>
+          <% if @badges.empty? %>
+            <p class="text-sm font-semibold text-[#5c6f68]">Primeiro badge vem na primeira tarefa concluida.</p>
+          <% end %>
+        </div>
+      </section>
+
+      <section class="rounded-md bg-[#1f7a8c] p-4 text-white">
+        <h2 class="text-lg font-black">Token Atalhos</h2>
+        <p class="mt-2 break-all rounded-md bg-black/20 p-3 text-xs font-mono"><%= current_user.api_token %></p>
+      </section>
+    </aside>
+  </div>
+</section>

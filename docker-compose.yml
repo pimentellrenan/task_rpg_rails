@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16
+    container_name: task_rpg_db
+    environment:
+      POSTGRES_USER: taskrpg
+      POSTGRES_PASSWORD: taskrpg123
+      POSTGRES_DB: task_rpg_development
+    ports:
+      - "5434:5432"
+    volumes:
+      - task_rpg_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskrpg -d task_rpg_development"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    container_name: task_rpg_app
+    command: bash -lc "bundle install && ruby bin/rails db:prepare && (ruby bin/rails tailwindcss:watch & ruby bin/rails server -b 0.0.0.0)"
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgresql://taskrpg:taskrpg123@db:5432/task_rpg_development
+      RAILS_MASTER_KEY: local-dev-no-credentials
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/rails
+      - bundle:/usr/local/bundle
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  task_rpg_pgdata:
+  bundle:

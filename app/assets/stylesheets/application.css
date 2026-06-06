@@ -1,0 +1,18 @@
+/*
+ * Lightweight app polish. Tailwind utilities carry most layout.
+ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: ui-rounded, "Aptos", "Segoe UI", sans-serif;
+}
+
+textarea,
+input,
+select,
+button {
+  font: inherit;
+}

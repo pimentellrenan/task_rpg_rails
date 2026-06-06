@@ -1,0 +1,14 @@
+<section class="grid min-h-screen place-items-center px-4">
+  <div class="w-full max-w-md rounded-md border-2 border-[#17201d] bg-white p-6 shadow-[8px_8px_0_#1f7a8c]">
+    <p class="text-sm font-bold uppercase tracking-wide text-[#bf4342]">Task RPG</p>
+    <h1 class="mt-1 text-4xl font-black">Entrar</h1>
+
+    <%= form_with url: session_path, class: "mt-6 space-y-4" do |form| %>
+      <%= form.email_field :email, placeholder: "email", class: "w-full rounded-md border border-[#17201d]/15 px-4 py-3 font-bold" %>
+      <%= form.password_field :password, placeholder: "senha", class: "w-full rounded-md border border-[#17201d]/15 px-4 py-3 font-bold" %>
+      <%= form.submit "Entrar", class: "w-full rounded-md bg-[#17201d] px-4 py-3 font-black text-white" %>
+    <% end %>
+
+    <%= link_to "Criar conta", new_registration_path, class: "mt-4 block text-center text-sm font-bold text-[#1f7a8c]" %>
+  </div>
+</section>
