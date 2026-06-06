@@ -32,7 +32,7 @@ jobs:
         with:
           ruby-version: "3.3"
           bundler-cache: true
-      - run: bundle exec rails runner 'ActiveRecord::Base.establish_connection(ENV.fetch("DATABASE_URL")); ActiveRecord::MigrationContext.new("db/migrate", ActiveRecord::SchemaMigration).migrate'
+      - run: bundle exec rails runner 'ActiveRecord::Base.establish_connection(ENV.fetch("DATABASE_URL")); ActiveRecord::Base.connection.migration_context.migrate'
       - run: bundle exec rails test
 
   deploy:
