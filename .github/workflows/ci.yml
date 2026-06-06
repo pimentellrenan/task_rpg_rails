@@ -25,15 +25,14 @@ jobs:
           --health-retries 5
     env:
       RAILS_ENV: test
+      DATABASE_URL: postgres://taskrpg:taskrpg123@localhost:5432/task_rpg_test
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
           bundler-cache: true
-      - run: |
-          bundle exec rails runner 'puts ActiveRecord::Base.configurations.configs_for(env_name: Rails.env).map { |c| [c.name, c.configuration_hash.except(:password)] }.inspect'
-      - run: bundle exec rails runner 'ActiveRecord::MigrationContext.new("db/migrate", ActiveRecord::SchemaMigration).migrate'
+      - run: bundle exec rails runner 'ActiveRecord::Base.establish_connection(ENV.fetch("DATABASE_URL")); ActiveRecord::MigrationContext.new("db/migrate", ActiveRecord::SchemaMigration).migrate'
       - run: bundle exec rails test
 
   deploy:
