@@ -93,3 +93,18 @@ create table if not exists daily_stats (
 );
 create index if not exists index_daily_stats_on_user_id on daily_stats(user_id);
 create unique index if not exists index_daily_stats_on_user_id_and_date on daily_stats(user_id, date);
+
+create table if not exists schema_migrations (
+  version varchar not null primary key
+);
+
+insert into schema_migrations (version) values
+  ('20260606182000'),
+  ('20260606182100'),
+  ('20260606182200'),
+  ('20260606182300'),
+  ('20260606182400'),
+  ('20260606182500'),
+  ('20260606182600'),
+  ('20260606182700')
+on conflict do nothing;
